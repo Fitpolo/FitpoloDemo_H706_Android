@@ -1,0 +1,45 @@
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.fitpolo.demo.h706">
+
+    <application
+        android:name="com.fitpolo.demo.h706.BaseApplication"
+        android:allowBackup="true"
+        android:icon="@drawable/ic_launcher"
+        android:label="@string/app_name"
+        android:theme="@android:style/Theme.Holo.Light.NoActionBar">
+        <activity
+            android:name="com.fitpolo.demo.h706.activity.GuideActivity"
+            android:screenOrientation="portrait">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name="com.fitpolo.demo.h706.activity.SendOrderActivity"
+            android:launchMode="singleTask"
+            android:screenOrientation="portrait" />
+
+        <activity
+            android:name="com.fitpolo.demo.h706.activity.MainActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name="com.fitpolo.demo.h706.activity.MessageNotificationActivity"
+            android:screenOrientation="portrait" />
+
+        <service android:name="com.fitpolo.demo.h706.service.MokoService" />
+
+        <service
+            android:name="com.fitpolo.demo.h706.service.FitpoloNotificationCollectorService"
+            android:label="@string/app_name"
+            android:permission="android.permission.BIND_NOTIFICATION_LISTENER_SERVICE">
+            <intent-filter>
+                <action android:name="android.service.notification.NotificationListenerService" />
+            </intent-filter>
+        </service>
+        <service android:name="com.fitpolo.demo.h706.service.FitpoloNotificationCollectorMonitorService" />
+        <service android:name="com.fitpolo.demo.h706.service.DfuService" />
+    </application>
+
+</manifest>

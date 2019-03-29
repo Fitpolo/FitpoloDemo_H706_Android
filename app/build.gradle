@@ -1,0 +1,56 @@
+apply plugin: 'com.android.application'
+
+android {
+    compileSdkVersion 28
+    buildToolsVersion '28.0.3'
+    defaultConfig {
+        applicationId "com.fitpolo.demo.h706"
+        minSdkVersion 18
+        targetSdkVersion 28
+        versionCode 1
+        versionName "1.0"
+
+        javaCompileOptions {
+            annotationProcessorOptions {
+                includeCompileClasspath = true
+            }
+        }
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+        }
+    }
+    applicationVariants.all { variant ->
+        variant.outputs.all { output ->
+            def outputFile = output.outputFile
+            if (outputFile != null && outputFile.name.endsWith('.apk')) {
+                def formatedDate = new Date().format("yyyyMMddHHmm")
+                def apkFileName = "FitpoloDemoH706_${defaultConfig.versionName}_${formatedDate}.apk"
+                if (outputFile.name.contains('debug')) {
+                    apkFileName = "FitpoloDemoH706__${defaultConfig.versionName}_${formatedDate}_debug.apk"
+                }
+                outputFileName = apkFileName
+            }
+        }
+    }
+}
+
+configurations.all {
+    resolutionStrategy.eachDependency { DependencyResolveDetails details ->
+        def requested = details.requested
+        if (requested.group == 'com.android.support') {
+            if (!requested.name.startsWith("multidex")) {
+                details.useVersion '28.0.0'
+            }
+        }
+    }
+}
+
+dependencies {
+    implementation fileTree(include: ['*.jar'], dir: 'libs')
+    implementation 'com.jakewharton:butterknife:7.0.1'
+    implementation 'com.android.support:support-v4:28.0.0'
+    implementation project(path: ':fitpolosupport')
+}
