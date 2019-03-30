@@ -89,6 +89,14 @@
                     android:onClick="notifyLine"
                     android:text="notifyLine" />
             </TableRow>
+
+            <Button
+                android:id="@+id/btn_notify_common"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:onClick="notifyCommon"
+                android:text="notifyCommon" />
+
         </TableLayout>
     </ScrollView>
 

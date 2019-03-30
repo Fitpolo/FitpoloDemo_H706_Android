@@ -21,7 +21,6 @@ import com.fitpolo.support.callback.MokoScanDeviceCallback;
 import com.fitpolo.support.entity.AutoLighten;
 import com.fitpolo.support.entity.BandAlarm;
 import com.fitpolo.support.entity.BleDevice;
-import com.fitpolo.support.entity.CustomScreen;
 import com.fitpolo.support.entity.DailySleep;
 import com.fitpolo.support.entity.DailyStep;
 import com.fitpolo.support.entity.DeviceTypeEnum;
@@ -376,13 +375,27 @@ public class MokoSupport implements MokoResponseCallback {
                 // 记步变化
                 orderType = OrderType.STEP_CHARACTER;
             }
+            if (characteristic.getUuid().toString().equals(OrderType.WRITE_CHARACTER.getUuid())) {
+                // 寻找手机
+                orderType = OrderType.WRITE_CHARACTER;
+            }
             if (orderType != null) {
-                DailyStep dailyStep = ComplexDataParse.parseCurrentStep(value);
-                if (dailyStep != null) {
-                    setDailyStep(dailyStep);
-                    Intent intent = new Intent(MokoConstants.ACTION_CURRENT_DATA);
-                    intent.putExtra(MokoConstants.EXTRA_KEY_CURRENT_DATA_TYPE, OrderEnum.Z_STEPS_CHANGES_LISTENER);
-                    mContext.sendBroadcast(intent);
+                switch (orderType) {
+                    case STEP_CHARACTER:
+                        DailyStep dailyStep = ComplexDataParse.parseCurrentStep(value);
+                        if (dailyStep != null) {
+                            setDailyStep(dailyStep);
+                            Intent intent = new Intent(MokoConstants.ACTION_CURRENT_DATA);
+                            intent.putExtra(MokoConstants.EXTRA_KEY_CURRENT_DATA_TYPE, OrderEnum.Z_STEPS_CHANGES_LISTENER);
+                            mContext.sendBroadcast(intent);
+                        }
+                        break;
+                    case WRITE_CHARACTER:
+                        if (0x17 == (value[1] & 0xFF)) {
+                            LogModule.i("寻找手机");
+                            mMokoConnStateCallback.onFindPhone();
+                        }
+                        break;
                 }
             }
             return;
@@ -954,16 +967,16 @@ public class MokoSupport implements MokoResponseCallback {
     }
 
     ///////////////////////////////////////////////////////////////////////////
-    // custom screen
+    // custom sort screen
     ///////////////////////////////////////////////////////////////////////////
-    private CustomScreen mCustomScreen;
+    private ArrayList<Integer> mCustomSortScreen;
 
-    public void setCustomScreen(CustomScreen customScreen) {
-        mCustomScreen = customScreen;
+    public void setCustomSortScreen(ArrayList<Integer> customSortScreen) {
+        mCustomSortScreen = customSortScreen;
     }
 
-    public CustomScreen getCustomScreen() {
-        return mCustomScreen;
+    public ArrayList<Integer> getCustomSortScreen() {
+        return mCustomSortScreen;
     }
 
     ///////////////////////////////////////////////////////////////////////////
@@ -1045,6 +1058,32 @@ public class MokoSupport implements MokoResponseCallback {
 
     public void setDial(int dial) {
         this.mDial = dial;
+    }
+
+    ///////////////////////////////////////////////////////////////////////////
+    // shakeStrength
+    ///////////////////////////////////////////////////////////////////////////
+    private int mShakeStrength;
+
+    public int getShakeStrength() {
+        return mShakeStrength;
+    }
+
+    public void setShakeStrength(int shakeStrength) {
+        this.mShakeStrength = shakeStrength;
+    }
+
+    ///////////////////////////////////////////////////////////////////////////
+    // dateFormat
+    ///////////////////////////////////////////////////////////////////////////
+    private int mDateFormat;
+
+    public int getDateFormat() {
+        return mDateFormat;
+    }
+
+    public void setDateFormat(int dateFormat) {
+        this.mDateFormat = dateFormat;
     }
 
     ///////////////////////////////////////////////////////////////////////////

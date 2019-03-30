@@ -18,12 +18,14 @@
                 <Button
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_weight="1.0"
                     android:onClick="getInnerVersion"
                     android:text="getInnerVersion" />
 
                 <Button
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_weight="1.0"
                     android:onClick="setSystemTime"
                     android:text="setSystemTime" />
             </TableRow>
@@ -33,12 +35,14 @@
                 <Button
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_weight="1.0"
                     android:onClick="setUserInfo"
                     android:text="setUserInfo" />
 
                 <Button
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_weight="1.0"
                     android:onClick="getUserInfo"
                     android:text="getUserInfo" />
 
@@ -49,12 +53,14 @@
                 <Button
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_weight="1.0"
                     android:onClick="setAllAlarms"
                     android:text="setAllAlarms" />
 
                 <Button
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_weight="1.0"
                     android:onClick="getAllAlarms"
                     android:text="getAllAlarms" />
             </TableRow>
@@ -64,16 +70,16 @@
                 <Button
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_weight="1.0"
                     android:onClick="setUnitType"
                     android:text="setUnitType" />
 
                 <Button
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_weight="1.0"
                     android:onClick="getUnitType"
                     android:text="getUnitType" />
-
-
             </TableRow>
 
             <TableRow>
@@ -81,12 +87,14 @@
                 <Button
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_weight="1.0"
                     android:onClick="setTimeFormat"
                     android:text="setTimeFormat" />
 
                 <Button
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_weight="1.0"
                     android:onClick="getTimeFormat"
                     android:text="getTimeFormat" />
             </TableRow>
@@ -96,6 +104,7 @@
                 <Button
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_weight="1.0"
                     android:onClick="setAutoLigten"
                     android:text="setAutoLigten" />
 
@@ -111,6 +120,7 @@
                 <Button
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_weight="1.0"
                     android:onClick="setSitAlert"
                     android:text="setSitAlert" />
 
@@ -126,12 +136,14 @@
                 <Button
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_weight="1.0"
                     android:onClick="setLastScreen"
                     android:text="setLastScreen" />
 
                 <Button
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_weight="1.0"
                     android:onClick="getLastScreen"
                     android:text="getLastScreen" />
             </TableRow>
@@ -142,12 +154,14 @@
                 <Button
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_weight="1.0"
                     android:onClick="setHeartRateInterval"
                     android:text="setHeartRateInterval" />
 
                 <Button
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_weight="1.0"
                     android:onClick="getHeartRateInterval"
                     android:text="getHeartRateInterval" />
             </TableRow>
@@ -157,14 +171,16 @@
                 <Button
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:onClick="setCustomScreen"
-                    android:text="setCustomScreen" />
+                    android:layout_weight="1.0"
+                    android:onClick="setCustomSortScreen"
+                    android:text="setCustomSortScreen" />
 
                 <Button
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:onClick="getCustomScreen"
-                    android:text="getCustomScreen" />
+                    android:layout_weight="1.0"
+                    android:onClick="getCustomSortScreen"
+                    android:text="getCustomSortScreen" />
             </TableRow>
 
             <TableRow>
@@ -172,12 +188,14 @@
                 <Button
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_weight="1.0"
                     android:onClick="setStepTarget"
                     android:text="setStepTarget" />
 
                 <Button
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_weight="1.0"
                     android:onClick="getStepTarget"
                     android:text="getStepTarget" />
             </TableRow>
@@ -187,12 +205,14 @@
                 <Button
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_weight="1.0"
                     android:onClick="setDial"
                     android:text="setDial" />
 
                 <Button
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_weight="1.0"
                     android:onClick="getDial"
                     android:text="getDial" />
             </TableRow>
@@ -202,12 +222,14 @@
                 <Button
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_weight="1.0"
                     android:onClick="setNoDiturb"
                     android:text="setNoDiturb" />
 
                 <Button
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_weight="1.0"
                     android:onClick="getNoDiturb"
                     android:text="getNoDiturb" />
             </TableRow>
@@ -217,12 +239,48 @@
                 <Button
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_weight="1.0"
+                    android:onClick="setDateFormat"
+                    android:text="setDateFormat" />
+
+                <Button
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1.0"
+                    android:onClick="getDateFormat"
+                    android:text="getDateFormat" />
+            </TableRow>
+
+            <TableRow>
+
+                <Button
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1.0"
+                    android:onClick="setShakeStrength"
+                    android:text="setShakeStrength" />
+
+                <Button
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1.0"
+                    android:onClick="getShakeStrength"
+                    android:text="getShakeStrength" />
+            </TableRow>
+
+            <TableRow>
+
+                <Button
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1.0"
                     android:onClick="getLastestSteps"
                     android:text="getLastestSteps" />
 
                 <Button
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_weight="1.0"
                     android:onClick="getLastestSleeps"
                     android:text="getLastestSleeps" />
             </TableRow>
@@ -251,28 +309,31 @@
                 <Button
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_weight="1.0"
                     android:onClick="getLastChargeTime"
                     android:text="getLastChargeTime" />
 
                 <Button
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_weight="1.0"
                     android:onClick="getBattery"
                     android:text="getBattery" />
             </TableRow>
 
             <TableRow>
 
-
                 <Button
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_weight="1.0"
                     android:onClick="openFindPhone"
                     android:text="openFindPhone" />
 
                 <Button
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_weight="1.0"
                     android:onClick="setLanguage"
                     android:text="setLanguage" />
             </TableRow>
@@ -282,12 +343,14 @@
                 <Button
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_weight="1.0"
                     android:onClick="shakeBand"
                     android:text="setShakeBand" />
 
                 <Button
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_weight="1.0"
                     android:onClick="sendMultiOrders"
                     android:text="sendMultiOrders" />
             </TableRow>
@@ -298,14 +361,34 @@
                 <Button
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_weight="1.0"
                     android:onClick="upgradeFirmware"
                     android:text="upgradeFirmware" />
 
                 <Button
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_weight="1.0"
                     android:onClick="notification"
                     android:text="notification" />
+            </TableRow>
+
+            <TableRow>
+
+
+                <Button
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1.0"
+                    android:onClick="reset"
+                    android:text="reset" />
+
+                <Button
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1.0"
+                    android:onClick="close"
+                    android:text="close" />
             </TableRow>
 
         </TableLayout>

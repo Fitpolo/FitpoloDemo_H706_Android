@@ -11,28 +11,23 @@ import com.fitpolo.support.utils.DigitalConver;
 import java.util.ArrayList;
 
 /**
- * @Date 2017/5/11
+ * @Date 2019/3/1
  * @Author wenzheng.liu
- * @Description 设置自定义屏幕
- * @ClassPath com.fitpolo.support.task.ZWriteCustomSortScreenTask
+ * @Description 读取自定义屏幕排序
+ * @ClassPath com.fitpolo.support.task.ZReadDateFormatTask
  */
-public class ZWriteCustomSortScreenTask extends OrderTask {
-    private static final int ORDERDATA_LENGTH = 20;
+public class ZReadCustomSortScreenTask extends OrderTask {
+    private static final int ORDERDATA_LENGTH = 3;
 
     private byte[] orderData;
 
-    public ZWriteCustomSortScreenTask(MokoOrderTaskCallback callback, ArrayList<Integer> codes) {
-        super(OrderType.WRITE_CHARACTER, OrderEnum.Z_WRITE_CUSTOM_SORT_SCREEN, callback, OrderTask.RESPONSE_TYPE_WRITE_NO_RESPONSE);
+    public ZReadCustomSortScreenTask(MokoOrderTaskCallback callback) {
+        super(OrderType.READ_CHARACTER, OrderEnum.Z_READ_CUSTOM_SORT_SCREEN, callback, OrderTask.RESPONSE_TYPE_WRITE_NO_RESPONSE);
+
         orderData = new byte[ORDERDATA_LENGTH];
-        orderData[0] = (byte) MokoConstants.HEADER_WRITE_SEND;
+        orderData[0] = (byte) MokoConstants.HEADER_READ_SEND;
         orderData[1] = (byte) order.getOrderHeader();
-        orderData[2] = (byte) 0x11;
-        int size = codes.size();
-        orderData[3] = (byte) size;
-        for (int i = 0; i < size; i++) {
-            int code = codes.get(i);
-            orderData[4 + i] = (byte) code;
-        }
+        orderData[2] = (byte) 0x00;
     }
 
     @Override
@@ -45,15 +40,21 @@ public class ZWriteCustomSortScreenTask extends OrderTask {
         if (order.getOrderHeader() != DigitalConver.byte2Int(value[1])) {
             return;
         }
-        if (0x01 != DigitalConver.byte2Int(value[2])) {
+        if (0x11 != DigitalConver.byte2Int(value[2])) {
             return;
         }
-        if (0x00 != DigitalConver.byte2Int(value[3])) {
-            return;
+        int shownLength = DigitalConver.byte2Int(value[3]);
+        LogModule.w("显示长度：" + shownLength);
+        ArrayList<Integer> shownCodes = new ArrayList<>();
+        for (int i = 0; i < shownLength; i++) {
+            int code = DigitalConver.byte2Int(value[i + 4]);
+            shownCodes.add(code);
         }
+        MokoSupport.getInstance().setCustomSortScreen(shownCodes);
 
         LogModule.i(order.getOrderName() + "成功");
         orderStatus = OrderTask.ORDER_STATUS_SUCCESS;
+
         MokoSupport.getInstance().pollTask();
         callback.onOrderResult(response);
         MokoSupport.getInstance().executeTask(callback);

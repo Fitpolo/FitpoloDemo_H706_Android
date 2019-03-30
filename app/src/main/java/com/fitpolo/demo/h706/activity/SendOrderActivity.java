@@ -29,7 +29,6 @@ import com.fitpolo.support.MokoSupport;
 import com.fitpolo.support.entity.AutoLighten;
 import com.fitpolo.support.entity.BandAlarm;
 import com.fitpolo.support.entity.BleDevice;
-import com.fitpolo.support.entity.CustomScreen;
 import com.fitpolo.support.entity.DailySleep;
 import com.fitpolo.support.entity.DailyStep;
 import com.fitpolo.support.entity.HeartRate;
@@ -43,7 +42,8 @@ import com.fitpolo.support.task.ZOpenStepListenerTask;
 import com.fitpolo.support.task.ZReadAlarmsTask;
 import com.fitpolo.support.task.ZReadAutoLightenTask;
 import com.fitpolo.support.task.ZReadBatteryTask;
-import com.fitpolo.support.task.ZReadCustomScreenTask;
+import com.fitpolo.support.task.ZReadCustomSortScreenTask;
+import com.fitpolo.support.task.ZReadDateFormatTask;
 import com.fitpolo.support.task.ZReadDialTask;
 import com.fitpolo.support.task.ZReadHeartRateIntervalTask;
 import com.fitpolo.support.task.ZReadHeartRateTask;
@@ -51,6 +51,7 @@ import com.fitpolo.support.task.ZReadLastChargeTimeTask;
 import com.fitpolo.support.task.ZReadLastScreenTask;
 import com.fitpolo.support.task.ZReadNoDisturbTask;
 import com.fitpolo.support.task.ZReadParamsTask;
+import com.fitpolo.support.task.ZReadShakeStrengthTask;
 import com.fitpolo.support.task.ZReadSitAlertTask;
 import com.fitpolo.support.task.ZReadSleepGeneralTask;
 import com.fitpolo.support.task.ZReadStepTargetTask;
@@ -61,13 +62,17 @@ import com.fitpolo.support.task.ZReadUserInfoTask;
 import com.fitpolo.support.task.ZReadVersionTask;
 import com.fitpolo.support.task.ZWriteAlarmsTask;
 import com.fitpolo.support.task.ZWriteAutoLightenTask;
-import com.fitpolo.support.task.ZWriteCustomScreenTask;
+import com.fitpolo.support.task.ZWriteCloseTask;
+import com.fitpolo.support.task.ZWriteCustomSortScreenTask;
+import com.fitpolo.support.task.ZWriteDateFormatTask;
 import com.fitpolo.support.task.ZWriteDialTask;
 import com.fitpolo.support.task.ZWriteFindPhoneTask;
 import com.fitpolo.support.task.ZWriteHeartRateIntervalTask;
 import com.fitpolo.support.task.ZWriteLanguageTask;
 import com.fitpolo.support.task.ZWriteLastScreenTask;
 import com.fitpolo.support.task.ZWriteNoDisturbTask;
+import com.fitpolo.support.task.ZWriteResetTask;
+import com.fitpolo.support.task.ZWriteShakeStrengthTask;
 import com.fitpolo.support.task.ZWriteShakeTask;
 import com.fitpolo.support.task.ZWriteSitAlertTask;
 import com.fitpolo.support.task.ZWriteStepTargetTask;
@@ -174,9 +179,34 @@ public class SendOrderActivity extends BaseActivity {
                             int interval = MokoSupport.getInstance().getHeartRateInterval();
                             LogModule.i("Heart rate interval:" + interval);
                             break;
-                        case Z_READ_CUSTOM_SCREEN:
-                            CustomScreen customScreen = MokoSupport.getInstance().getCustomScreen();
-                            LogModule.i(customScreen.toString());
+                        case Z_READ_CUSTOM_SORT_SCREEN:
+                            ArrayList<Integer> shownScreens = MokoSupport.getInstance().getCustomSortScreen();
+                            if (shownScreens != null && !shownScreens.isEmpty()) {
+                                StringBuilder stringBuilder = new StringBuilder();
+                                for (Integer shownScreen : shownScreens) {
+                                    if (shownScreen == 0) {
+                                        stringBuilder.append(String.format("%d:%s,", shownScreen, "Activity"));
+                                    } else if (shownScreen == 1) {
+                                        stringBuilder.append(String.format("%d:%s,", shownScreen, "Sport"));
+                                    } else if (shownScreen == 2) {
+                                        stringBuilder.append(String.format("%d:%s,", shownScreen, "Stopwatch"));
+                                    } else if (shownScreen == 3) {
+                                        stringBuilder.append(String.format("%d:%s,", shownScreen, "Timer"));
+                                    } else if (shownScreen == 4) {
+                                        stringBuilder.append(String.format("%d:%s,", shownScreen, "Heart Rate"));
+                                    } else if (shownScreen == 5) {
+                                        stringBuilder.append(String.format("%d:%s,", shownScreen, "Breath"));
+                                    } else if (shownScreen == 6) {
+                                        stringBuilder.append(String.format("%d:%s,", shownScreen, "Sleep"));
+                                    } else if (shownScreen == 7) {
+                                        stringBuilder.append(String.format("%d:%s,", shownScreen, "More"));
+                                    } else if (shownScreen == 8) {
+                                        stringBuilder.append(String.format("%d:%s,", shownScreen, "Pairing code"));
+                                    }
+                                }
+                                LogModule.i(stringBuilder.toString());
+                            }
+
                             break;
                         case Z_READ_STEPS:
                             ArrayList<DailyStep> lastestSteps = MokoSupport.getInstance().getDailySteps();
@@ -223,6 +253,13 @@ public class SendOrderActivity extends BaseActivity {
                             break;
                         case Z_READ_BATTERY:
                             LogModule.i("Battery：" + MokoSupport.getInstance().getBatteryQuantity());
+                            break;
+                        case Z_READ_SHAKE_STRENGTH:
+                            LogModule.i("Shake Strength：" + MokoSupport.getInstance().getShakeStrength());
+                            break;
+                        case Z_READ_DATE_FORMAT:
+                            int dateFormat = MokoSupport.getInstance().getDateFormat();
+                            LogModule.i("Date Format：" + (dateFormat == 0 ? "D/M" : "M/D"));
                             break;
                     }
 
@@ -369,14 +406,22 @@ public class SendOrderActivity extends BaseActivity {
         MokoSupport.getInstance().sendOrder(new ZReadHeartRateIntervalTask(mService));
     }
 
-    public void setCustomScreen(View view) {
-        CustomScreen customScreen = new CustomScreen(true, true, true, true, true, true);
-        MokoSupport.getInstance().sendOrder(new ZWriteCustomScreenTask(mService, customScreen));
+    public void setCustomSortScreen(View view) {
+        ArrayList<Integer> shownScreen = new ArrayList<>();
+        shownScreen.add(0);
+        shownScreen.add(1);
+        shownScreen.add(2);
+        shownScreen.add(3);
+        shownScreen.add(4);
+        shownScreen.add(5);
+        shownScreen.add(6);
+        shownScreen.add(7);
+        shownScreen.add(8);
+        MokoSupport.getInstance().sendOrder(new ZWriteCustomSortScreenTask(mService, shownScreen));
     }
 
-
-    public void getCustomScreen(View view) {
-        MokoSupport.getInstance().sendOrder(new ZReadCustomScreenTask(mService));
+    public void getCustomSortScreen(View view) {
+        MokoSupport.getInstance().sendOrder(new ZReadCustomSortScreenTask(mService));
     }
 
     public void setStepTarget(View view) {
@@ -405,6 +450,23 @@ public class SendOrderActivity extends BaseActivity {
 
     public void getNoDiturb(View view) {
         MokoSupport.getInstance().sendOrder(new ZReadNoDisturbTask(mService));
+    }
+
+
+    public void setDateFormat(View view) {
+        MokoSupport.getInstance().sendOrder(new ZWriteDateFormatTask(mService, 1));
+    }
+
+    public void getDateFormat(View view) {
+        MokoSupport.getInstance().sendOrder(new ZReadDateFormatTask(mService));
+    }
+
+    public void setShakeStrength(View view) {
+        MokoSupport.getInstance().sendOrder(new ZWriteShakeStrengthTask(mService, 5));
+    }
+
+    public void getShakeStrength(View view) {
+        MokoSupport.getInstance().sendOrder(new ZReadShakeStrengthTask(mService));
     }
 
     public void getLastestSteps(View view) {
@@ -472,6 +534,15 @@ public class SendOrderActivity extends BaseActivity {
         } catch (ActivityNotFoundException ex) {
             Toast.makeText(this, "install file manager app", Toast.LENGTH_SHORT).show();
         }
+    }
+
+
+    public void reset(View view) {
+        MokoSupport.getInstance().sendOrder(new ZWriteResetTask(mService));
+    }
+
+    public void close(View view) {
+        MokoSupport.getInstance().sendOrder(new ZWriteCloseTask(mService));
     }
 
 

@@ -27,4 +27,11 @@ public interface MokoConnStateCallback {
      * @Description 重连超时
      */
     void onConnTimeout(int reConnCount);
+
+    /**
+     * @Date 2018/10/8
+     * @Author wenzheng.liu
+     * @Description 寻找手机
+     */
+    void onFindPhone();
 }

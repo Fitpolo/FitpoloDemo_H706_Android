@@ -17,6 +17,7 @@ import com.fitpolo.demo.h706.service.MokoService;
 import com.fitpolo.support.MokoConstants;
 import com.fitpolo.support.MokoSupport;
 import com.fitpolo.support.entity.NotifyEnum;
+import com.fitpolo.support.task.ZWriteCommonMessageTask;
 import com.fitpolo.support.task.ZWriteNotifyTask;
 
 import butterknife.ButterKnife;
@@ -93,6 +94,11 @@ public class MessageNotificationActivity extends BaseActivity {
 
     public void notifyLine(View view) {
         MokoSupport.getInstance().sendDirectOrder(new ZWriteNotifyTask(mService, NotifyEnum.LINE, "asd", true));
+    }
+
+
+    public void notifyCommon(View view) {
+        MokoSupport.getInstance().sendOrder(new ZWriteCommonMessageTask(mService, false, "common\nasd", true));
     }
 
     private BroadcastReceiver mReceiver = new BroadcastReceiver() {
