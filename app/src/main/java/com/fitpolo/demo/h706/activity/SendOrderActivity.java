@@ -29,6 +29,7 @@ import com.fitpolo.support.MokoSupport;
 import com.fitpolo.support.entity.AutoLighten;
 import com.fitpolo.support.entity.BandAlarm;
 import com.fitpolo.support.entity.BleDevice;
+import com.fitpolo.support.entity.DailyDetailStep;
 import com.fitpolo.support.entity.DailySleep;
 import com.fitpolo.support.entity.DailyStep;
 import com.fitpolo.support.entity.HeartRate;
@@ -54,6 +55,7 @@ import com.fitpolo.support.task.ZReadParamsTask;
 import com.fitpolo.support.task.ZReadShakeStrengthTask;
 import com.fitpolo.support.task.ZReadSitAlertTask;
 import com.fitpolo.support.task.ZReadSleepGeneralTask;
+import com.fitpolo.support.task.ZReadStepIntervalTask;
 import com.fitpolo.support.task.ZReadStepTargetTask;
 import com.fitpolo.support.task.ZReadStepTask;
 import com.fitpolo.support.task.ZReadTimeFormatTask;
@@ -75,6 +77,7 @@ import com.fitpolo.support.task.ZWriteResetTask;
 import com.fitpolo.support.task.ZWriteShakeStrengthTask;
 import com.fitpolo.support.task.ZWriteShakeTask;
 import com.fitpolo.support.task.ZWriteSitAlertTask;
+import com.fitpolo.support.task.ZWriteStepIntervalTask;
 import com.fitpolo.support.task.ZWriteStepTargetTask;
 import com.fitpolo.support.task.ZWriteSystemTimeTask;
 import com.fitpolo.support.task.ZWriteTimeFormatTask;
@@ -260,6 +263,15 @@ public class SendOrderActivity extends BaseActivity {
                         case Z_READ_DATE_FORMAT:
                             int dateFormat = MokoSupport.getInstance().getDateFormat();
                             LogModule.i("Date Format：" + (dateFormat == 0 ? "D/M" : "M/D"));
+                            break;
+                        case Z_READ_STEP_INTERVAL:
+                            ArrayList<DailyDetailStep> lastestDetaileSteps = MokoSupport.getInstance().getDailyDetailSteps();
+                            if (lastestDetaileSteps == null || lastestDetaileSteps.isEmpty()) {
+                                return;
+                            }
+                            for (DailyDetailStep step : lastestDetaileSteps) {
+                                LogModule.i(step.toString());
+                            }
                             break;
                     }
 
@@ -517,6 +529,16 @@ public class SendOrderActivity extends BaseActivity {
         ZReadTimeFormatTask timeFormatTask = new ZReadTimeFormatTask(mService);
         ZReadSitAlertTask sitAlertTask = new ZReadSitAlertTask(mService);
         MokoSupport.getInstance().sendOrder(unitTypeTask, timeFormatTask, sitAlertTask);
+    }
+
+
+    public void setStepInterval(View view) {
+        MokoSupport.getInstance().sendOrder(new ZWriteStepIntervalTask(mService));
+    }
+
+    public void getStepInterval(View view) {
+        Calendar calendar = Utils.strDate2Calendar("2019-04-01 00:00", AppConstants.PATTERN_YYYY_MM_DD_HH_MM);
+        MokoSupport.getInstance().sendOrder(new ZReadStepIntervalTask(mService, calendar));
     }
 
     public void notification(View view) {

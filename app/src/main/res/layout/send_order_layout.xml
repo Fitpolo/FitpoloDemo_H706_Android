@@ -267,6 +267,22 @@
                     android:onClick="getShakeStrength"
                     android:text="getShakeStrength" />
             </TableRow>
+            <TableRow>
+
+                <Button
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1.0"
+                    android:onClick="setStepInterval"
+                    android:text="setStepInterval" />
+
+                <Button
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1.0"
+                    android:onClick="getStepInterval"
+                    android:text="getStepInterval" />
+            </TableRow>
 
             <TableRow>
 

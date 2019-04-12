@@ -55,9 +55,11 @@ public enum OrderEnum implements Serializable {
     Z_WRITE_DATE_FORMAT("设置日期制式", 0x1C),
     Z_WRITE_CUSTOM_SORT_SCREEN("设置自定义屏幕排序", 0x1E),
     Z_WRITE_NODISTURB("设置勿扰模式", 0x0C),
+    Z_WRITE_STEP_INTERVAL("设置记步间隔", 0x21),
 
     Z_READ_STEPS("读取记步", 0x01),
     Z_STEPS_CHANGES_LISTENER("监听记步", 0x03),
+    Z_READ_STEP_INTERVAL("读取记步间隔", 0x05),
     Z_READ_HEART_RATE("读取心率", 0x01),
 
     RESET_DATA("恢复出厂设置", 0x0A),

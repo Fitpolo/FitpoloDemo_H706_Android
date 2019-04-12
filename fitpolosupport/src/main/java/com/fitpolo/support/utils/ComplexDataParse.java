@@ -1,5 +1,6 @@
 package com.fitpolo.support.utils;
 
+import com.fitpolo.support.entity.DailyDetailStep;
 import com.fitpolo.support.entity.DailySleep;
 import com.fitpolo.support.entity.DailyStep;
 import com.fitpolo.support.entity.HeartRate;
@@ -11,6 +12,7 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.Locale;
 
 /**
  * @Date 2018/4/6
@@ -55,6 +57,35 @@ public class ComplexDataParse {
         dailyStep.calories = caloriesStr;
         LogModule.i(dailyStep.toString());
         return dailyStep;
+    }
+
+    public static void parseDailyDetailStep(byte[] value, ArrayList<DailyDetailStep> dailyDetailSteps) {
+        // 日期
+        Calendar calendar = Calendar.getInstance();
+        for (int i = 0; i < 2; i++) {
+            int year = DigitalConver.byte2Int(value[i * 7 + 4]);
+            int month = DigitalConver.byte2Int(value[i * 7 + 5]);
+            int day = DigitalConver.byte2Int(value[i * 7 + 6]);
+            int hour = DigitalConver.byte2Int(value[i * 7 + 7]);
+            int minute = DigitalConver.byte2Int(value[i * 7 + 8]);
+            if (year == 0 && month == 0 && day == 0) {
+                continue;
+            }
+            calendar.set(2000 + year, month - 1, day, hour, minute);
+            SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm", Locale.US);
+            Date date = calendar.getTime();
+            String dateStr = sdf.format(date);
+            // 步数
+            byte[] step = new byte[2];
+            System.arraycopy(value, i * 7 + 9, step, 0, 2);
+            String stepStr = DigitalConver.byteArr2Str(step);
+
+            DailyDetailStep dailyDetailStep = new DailyDetailStep();
+            dailyDetailStep.date = dateStr;
+            dailyDetailStep.count = stepStr;
+            LogModule.i(dailyDetailStep.toString());
+            dailyDetailSteps.add(dailyDetailStep);
+        }
     }
 
 

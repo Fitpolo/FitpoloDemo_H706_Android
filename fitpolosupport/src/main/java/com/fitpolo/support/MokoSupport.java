@@ -21,6 +21,7 @@ import com.fitpolo.support.callback.MokoScanDeviceCallback;
 import com.fitpolo.support.entity.AutoLighten;
 import com.fitpolo.support.entity.BandAlarm;
 import com.fitpolo.support.entity.BleDevice;
+import com.fitpolo.support.entity.DailyDetailStep;
 import com.fitpolo.support.entity.DailySleep;
 import com.fitpolo.support.entity.DailyStep;
 import com.fitpolo.support.entity.DeviceTypeEnum;
@@ -770,6 +771,36 @@ public class MokoSupport implements MokoResponseCallback {
 
     public void setDailyStep(DailyStep dailyStep) {
         this.mDailyStep = dailyStep;
+    }
+
+    ///////////////////////////////////////////////////////////////////////////
+    // step detail
+    ///////////////////////////////////////////////////////////////////////////
+    private int mDailyDetailStepCount;
+    private ArrayList<DailyDetailStep> mDailyDetailSteps;
+
+    public void initDetailStepsList() {
+        if (mDailyDetailSteps != null) {
+            mDailyDetailSteps.clear();
+        } else {
+            mDailyDetailSteps = new ArrayList<>();
+        }
+    }
+
+    public void setDailyDetailStepCount(int dailyDetailStepCount) {
+        this.mDailyDetailStepCount = dailyDetailStepCount;
+    }
+
+    public int getDailyDetailStepCount() {
+        return mDailyDetailStepCount;
+    }
+
+    public ArrayList<DailyDetailStep> getDailyDetailSteps() {
+        return mDailyDetailSteps;
+    }
+
+    public void setDailyDetailSteps(ArrayList<DailyDetailStep> dailyDetailSteps) {
+        this.mDailyDetailSteps = dailyDetailSteps;
     }
 
     ///////////////////////////////////////////////////////////////////////////
