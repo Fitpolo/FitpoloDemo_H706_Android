@@ -33,6 +33,7 @@ import com.fitpolo.support.entity.NoDisturb;
 import com.fitpolo.support.entity.OrderEnum;
 import com.fitpolo.support.entity.OrderType;
 import com.fitpolo.support.entity.SitAlert;
+import com.fitpolo.support.entity.SportData;
 import com.fitpolo.support.entity.UserInfo;
 import com.fitpolo.support.handler.MokoCharacteristicHandler;
 import com.fitpolo.support.handler.MokoConnStateHandler;
@@ -1128,6 +1129,80 @@ public class MokoSupport implements MokoResponseCallback {
 
     public void setNodisturb(NoDisturb nodisturb) {
         this.mNodisturb = nodisturb;
+    }
+
+    ///////////////////////////////////////////////////////////////////////////
+    // sprots
+    ///////////////////////////////////////////////////////////////////////////
+    private int mSportsCount;
+    private ArrayList<SportData> mSportDatas;
+
+    public void initSportDatas() {
+        if (mSportDatas != null) {
+            mSportDatas.clear();
+        } else {
+            mSportDatas = new ArrayList<>();
+        }
+    }
+
+    public void setSportsCount(int sportsCount) {
+        this.mSportsCount = sportsCount;
+    }
+
+    public int getSportsCount() {
+        return mSportsCount;
+    }
+
+    public ArrayList<SportData> getSportDatas() {
+        return mSportDatas;
+    }
+
+    public void setSportDatas(ArrayList<SportData> sportDatas) {
+        this.mSportDatas = sportDatas;
+    }
+
+    ///////////////////////////////////////////////////////////////////////////
+    // sports heartRate
+    ///////////////////////////////////////////////////////////////////////////
+    private int mSportsHeartRateCount;
+    private ArrayList<HeartRate> mSportsHeartRates;
+    private HashMap<Integer, Boolean> mSportsHeartRatesMap;
+
+    public void initSportsHeartRatesList() {
+        if (mSportsHeartRates != null) {
+            mSportsHeartRates.clear();
+        } else {
+            mSportsHeartRates = new ArrayList<>();
+        }
+        if (mSportsHeartRatesMap != null) {
+            mSportsHeartRatesMap.clear();
+        } else {
+            mSportsHeartRatesMap = new HashMap<>();
+        }
+    }
+
+    public void setSportsHeartRatesCount(int sportsHeartRatesCount) {
+        this.mSportsHeartRateCount = sportsHeartRatesCount;
+    }
+
+    public int getSportsHeartRateCount() {
+        return mSportsHeartRateCount;
+    }
+
+    public void setSportsHeartRates(ArrayList<HeartRate> sportsHeartRates) {
+        this.mSportsHeartRates = sportsHeartRates;
+    }
+
+    public ArrayList<HeartRate> getSportsHeartRates() {
+        return mSportsHeartRates;
+    }
+
+    public HashMap<Integer, Boolean> getSportsHeartRatesMap() {
+        return mSportsHeartRatesMap;
+    }
+
+    public void setSportsHeartRatesMap(HashMap<Integer, Boolean> sportsHeartRatesMap) {
+        this.mSportsHeartRatesMap = sportsHeartRatesMap;
     }
 
 }

@@ -440,7 +440,7 @@ OrderTask：
 		ZWriteDateFormatTask
 		入参需传入日期格式
 		dateFormat;// 0:日/月，1:月/日
-	41.获取日期格式
+	41.获取日期格式zr
 		ZReadDateFormatTask
 		MokoSupport.getInstance().getDateFormat();
 	42.设置手环震动强度
@@ -450,6 +450,23 @@ OrderTask：
 	43.获取手环震动强度
 		ZReadShakeStrengthTask
 		MokoSupport.getInstance().getShakeStrength();
+	44.设置记步间隔
+	    ZWriteStepIntervalTask
+	    默认30分钟(1E)
+	45.获取记步间隔
+	    ZReadStepIntervalTask
+	    MokoSupport.getInstance().getDailyDetailSteps();
+	46.获取运动数据
+	    ZReadSportsTask
+	    incoming parameter need timestamp
+	    lastSyncTime;// yyyy-MM-dd HH:mm
+	    MokoSupport.getInstance().getSportDatas();
+	47.获取运动心率
+	    ZReadSportsHeartRateTask
+	    incoming parameter need timestamp
+        lastSyncTime;// yyyy-MM-dd HH:mm
+	    MokoSupport.getInstance().getSportsHeartRates();
+
 		
 
 ### 2.5	sendDirectOrder

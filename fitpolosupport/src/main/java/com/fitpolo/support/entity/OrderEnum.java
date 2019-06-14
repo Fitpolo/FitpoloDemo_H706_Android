@@ -34,6 +34,7 @@ public enum OrderEnum implements Serializable {
     Z_READ_DATE_FORMAT("读取日期制式", 0x1D),
     Z_READ_CUSTOM_SORT_SCREEN("读取自定义屏幕排序", 0x1F),
     Z_READ_NODISTURB("读取勿扰模式", 0x0C),
+    Z_READ_SPORTS("读取运动数据", 0x16),
     Z_WRITE_FIND_PHONE("打开寻找手机", 0x16),
     Z_WRITE_LANGUAGE("设置手环语言", 0x1B),
 
@@ -61,6 +62,7 @@ public enum OrderEnum implements Serializable {
     Z_STEPS_CHANGES_LISTENER("监听记步", 0x03),
     Z_READ_STEP_INTERVAL("读取记步间隔", 0x05),
     Z_READ_HEART_RATE("读取心率", 0x01),
+    Z_READ_SPORTS_HEART_RATE("读取运动心率", 0x04),
 
     RESET_DATA("恢复出厂设置", 0x0A),
     Z_WRITE_CLOSE("关机", 0x12),

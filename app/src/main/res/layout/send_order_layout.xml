@@ -407,6 +407,24 @@
                     android:text="close" />
             </TableRow>
 
+            <TableRow>
+
+
+                <Button
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1.0"
+                    android:onClick="getSportData"
+                    android:text="getSportData" />
+
+                <Button
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1.0"
+                    android:onClick="getSportHeartRate"
+                    android:text="getSportHeartRate" />
+            </TableRow>
+
         </TableLayout>
     </ScrollView>
 

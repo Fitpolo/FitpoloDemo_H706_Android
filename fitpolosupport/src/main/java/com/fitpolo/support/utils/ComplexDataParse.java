@@ -4,6 +4,7 @@ import com.fitpolo.support.entity.DailyDetailStep;
 import com.fitpolo.support.entity.DailySleep;
 import com.fitpolo.support.entity.DailyStep;
 import com.fitpolo.support.entity.HeartRate;
+import com.fitpolo.support.entity.SportData;
 import com.fitpolo.support.log.LogModule;
 
 import java.text.DecimalFormat;
@@ -226,5 +227,56 @@ public class ComplexDataParse {
             LogModule.i(heartRate.toString());
             heartRates.add(heartRate);
         }
+    }
+
+    public static void parseSportData(byte[] value, ArrayList<SportData> sportDatas) {
+        // 运动模式
+        int mode = DigitalConver.byte2Int(value[2]);
+        // 开始时间
+        Calendar calendar = Calendar.getInstance();
+        calendar.set(2000 + DigitalConver.byte2Int(value[4]),
+                DigitalConver.byte2Int(value[5]) - 1,
+                DigitalConver.byte2Int(value[6]),
+                DigitalConver.byte2Int(value[7]),
+                DigitalConver.byte2Int(value[8]));
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm");
+        Date date = calendar.getTime();
+        String startTimeStr = sdf.format(date);
+
+        // 时长
+        byte[] duration = new byte[2];
+        System.arraycopy(value, 9, duration, 0, 2);
+        String durationStr = DigitalConver.byteArr2Str(duration);
+
+        // 步数
+        byte[] sportCount = new byte[3];
+        System.arraycopy(value, 11, sportCount, 0, 3);
+        String sportCountStr = DigitalConver.byteArr2Str(sportCount);
+        // 卡路里
+        byte[] calories = new byte[2];
+        System.arraycopy(value, 14, calories, 0, 2);
+        String caloriesStr = DigitalConver.byteArr2Str(calories);
+
+        // 配速
+        byte[] speed = new byte[2];
+        System.arraycopy(value, 16, speed, 0, 2);
+        String speedStr = DigitalConver.byteArr2Str(speed);
+
+        // 距离
+        byte[] distance = new byte[2];
+        System.arraycopy(value, 18, distance, 0, 2);
+        String distanceStr = new DecimalFormat("#.##").format(DigitalConver.byteArr2Int(distance) * 0.01);
+
+
+        SportData sportData = new SportData();
+        sportData.sportMode = mode;
+        sportData.startTime = startTimeStr;
+        sportData.duration = durationStr;
+        sportData.sportCount = sportCountStr;
+        sportData.calories = caloriesStr;
+        sportData.speed = speedStr;
+        sportData.distance = distanceStr;
+        LogModule.i(sportData.toString());
+        sportDatas.add(sportData);
     }
 }

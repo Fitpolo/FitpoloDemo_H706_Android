@@ -37,6 +37,7 @@ import com.fitpolo.support.entity.NoDisturb;
 import com.fitpolo.support.entity.OrderEnum;
 import com.fitpolo.support.entity.OrderTaskResponse;
 import com.fitpolo.support.entity.SitAlert;
+import com.fitpolo.support.entity.SportData;
 import com.fitpolo.support.entity.UserInfo;
 import com.fitpolo.support.log.LogModule;
 import com.fitpolo.support.task.ZOpenStepListenerTask;
@@ -55,6 +56,8 @@ import com.fitpolo.support.task.ZReadParamsTask;
 import com.fitpolo.support.task.ZReadShakeStrengthTask;
 import com.fitpolo.support.task.ZReadSitAlertTask;
 import com.fitpolo.support.task.ZReadSleepGeneralTask;
+import com.fitpolo.support.task.ZReadSportsHeartRateTask;
+import com.fitpolo.support.task.ZReadSportsTask;
 import com.fitpolo.support.task.ZReadStepIntervalTask;
 import com.fitpolo.support.task.ZReadStepTargetTask;
 import com.fitpolo.support.task.ZReadStepTask;
@@ -271,6 +274,24 @@ public class SendOrderActivity extends BaseActivity {
                             }
                             for (DailyDetailStep step : lastestDetaileSteps) {
                                 LogModule.i(step.toString());
+                            }
+                            break;
+                        case Z_READ_SPORTS:
+                            ArrayList<SportData> sportDatas = MokoSupport.getInstance().getSportDatas();
+                            if (sportDatas == null || sportDatas.isEmpty()) {
+                                return;
+                            }
+                            for (SportData sportData : sportDatas) {
+                                LogModule.i(sportData.toString());
+                            }
+                            break;
+                        case Z_READ_SPORTS_HEART_RATE:
+                            ArrayList<HeartRate> lastestSportsHeartRate = MokoSupport.getInstance().getSportsHeartRates();
+                            if (lastestSportsHeartRate == null || lastestSportsHeartRate.isEmpty()) {
+                                return;
+                            }
+                            for (HeartRate heartRate : lastestSportsHeartRate) {
+                                LogModule.i(heartRate.toString());
                             }
                             break;
                     }
@@ -565,6 +586,17 @@ public class SendOrderActivity extends BaseActivity {
 
     public void close(View view) {
         MokoSupport.getInstance().sendOrder(new ZWriteCloseTask(mService));
+    }
+
+
+    public void getSportData(View view) {
+        Calendar calendar = Utils.strDate2Calendar("2019-04-01 00:00", AppConstants.PATTERN_YYYY_MM_DD_HH_MM);
+        MokoSupport.getInstance().sendOrder(new ZReadSportsTask(mService, calendar));
+    }
+
+    public void getSportHeartRate(View view) {
+        Calendar calendar = Utils.strDate2Calendar("2019-04-01 00:00", AppConstants.PATTERN_YYYY_MM_DD_HH_MM);
+        MokoSupport.getInstance().sendOrder(new ZReadSportsHeartRateTask(mService, calendar));
     }
 
 
