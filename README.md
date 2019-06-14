@@ -17,7 +17,7 @@
 	    @Override
 	    public void onCreate() {
 	        super.onCreate();
-	        // 初始化
+	        // initialization
 	        MokoSupport.getInstance().init(getApplicationContext());
 	    }
 	}
@@ -34,7 +34,7 @@
 	@Description  scanning device
 	public void startScanDevice(final MokoScanDeviceCallback callback) {}
 
-`MokoScanDeviceCallback`：call back 
+`MokoScanDeviceCallback`：call back
 
 	@Description scan device call back
 	public interface ScanDeviceCallback {
@@ -52,16 +52,16 @@
 
 		public class BleDevice implements Serializable, Comparable<BleDevice> {
 		    public String address;
-		    
+
 		    public String name;
 		    public int rssi;
 		    public String verifyCode;
 		    public byte[] scanRecord;
 			...
 		}
-		
+
 	for example
-	
+
 		BleDevice{address='DA:22:C3:C7:7D', name='FitpolpHR', rssi=-38, verifyCode='0C8D02', scanRecord=[2,1,6,7...]}
 
 - Do the processing work after scanning in `onStopScan()`;
@@ -151,14 +151,14 @@ Abstract class command, including command enumeration, command response callback
 
 		public enum OrderEnum implements Serializable {
 			READ_NOTIFY("turn on read notify", 0),
-			WRITE_NOTIFY("turn on write notify", 0) 
-			STEP_NOTIFY("turn on step counting notify", 0), 
+			WRITE_NOTIFY("turn on write notify", 0)
+			STEP_NOTIFY("turn on step counting notify", 0),
 			HEART_RATE_NOTIFY("turn on heart rate notify", 0),
 
-			Z_READ_ALARMS("read alarm", 0x01), 
-			Z_READ_SIT_ALERT("read Sedentary reminder", 0x04),  
-			Z_READ_STEP_TARGET("read step target", 0x06),  
-			Z_READ_UNIT_TYPE("read unit type", 0x07), 
+			Z_READ_ALARMS("read alarm", 0x01),
+			Z_READ_SIT_ALERT("read Sedentary reminder", 0x04),
+			Z_READ_STEP_TARGET("read step target", 0x06),
+			Z_READ_UNIT_TYPE("read unit type", 0x07),
 			...
 			private String orderName;
 			private int orderHeader;
@@ -177,7 +177,7 @@ Abstract class command, including command enumeration, command response callback
 			}
 		｝
 	- orderName: order name；
-	- orderHeader: Distinguish the header of the command: 
+	- orderHeader: Distinguish the header of the command:
 	- 	Different commands correspond to different enumeration types. When multiple commands are executed,  command is answered according to the type;
 
 3. MokoOrderTaskCallback
@@ -210,12 +210,12 @@ OrderTask：
 	1.gain inner version No.
 		ZReadVersionTask
 		After returning the result, you can get the bracelet information as follows:
-		MokoSupport.versionCode;// gain firmware 
+		MokoSupport.versionCode;// gain firmware
 		MokoSupport.firmwareEnum;// gain firmware type
 		MokoSupport.canUpgrade;// whether could upgrade
 	2.set system time
 		ZWriteSystemTimeTask
-	3.set user information 
+	3.set user information
 		ZWriteUserInfoTask
 		UserInfo Incoming users need to pass in user information
 		public class UserInfo {
@@ -237,7 +237,7 @@ OrderTask：
 		    public String time;// time，formate：HH:mm
 		    //  state
 		    // bit[7]：0：close；1：open；
-		    // bit[6]：1：sunday 
+		    // bit[6]：1：sunday
 		    // bit[5]：1：saturday
 		    // bit[4]：1：Friday
 		    // bit[3]：1：Thursday
@@ -251,18 +251,18 @@ OrderTask：
 	6.gain alarm datas
 		ZReadAlarmsTask
 		MokoSupport.getInstance().getAlarms();
-	7.set unit 
+	7.set unit
 		ZWriteUnitTypeTask
 		Incoming entry unit system
 		unitType// 0： Chinese type；1：British type， Default Chinese type
-	8.gain unit type 
+	8.gain unit type
 		ZReadUnitTypeTask
 		MokoSupport.getInstance().getUnitTypeBritish();
 	9.set display time format
 		ZWriteTimeFormatTask
 		 Incoming entry should display time format
 		timeFormat;// 0：24；1：12， default 24-hour system
-	10.gain time display formate 
+	10.gain time display formate
 		ZReadTimeFormatTask
 		MokoSupport.getInstance().getTimeFormat();
 	11.set light up the screen  by tap
@@ -301,28 +301,28 @@ OrderTask：
 	18.gain heart rate measure intrvial
 		ZReadHeartRateIntervalTask
 		MokoSupport.getInstance().getHeartRateInterval();
-	19.设置自定义可排序功能
+	19.Set custom sortable features
 		ZWriteCustomSortScreenTask
-		入参需传入可显示的功能集合
+		Entering need to pass in the set of functions that can be displayed
 		ArrayList<Integer> shownScreen = new ArrayList<>();
-        shownScreen.add(0);//0:Activity
-        shownScreen.add(1);//1:Sport
-        shownScreen.add(2);//2:Stopwatch
-        shownScreen.add(3);//3:Timer
-        shownScreen.add(4);//4:Heart Rate
-        shownScreen.add(5);//5:Breath
-        shownScreen.add(6);//6:Sleep
-        shownScreen.add(7);//7:More
-        shownScreen.add(8);//8:Pairing code
-       
-       集合里数值的顺序就是功能显示的顺序，不需要显示的功能不用添加进集合中，举例如下:
-       ArrayList<Integer> shownScreen = new ArrayList<>();
-        shownScreen.add(0);//0:Activity
-        shownScreen.add(8);//8:Pairing code
-        shownScreen.add(1);//1:Sport
-        shownScreen.add(6);//6:Sleep
-        shownScreen.add(2);//2:Stopwatch
-	20.获取自定义可排序功能
+	    shownScreen.add(0);//0:Activity
+	    shownScreen.add(1);//1:Sport
+	    shownScreen.add(2);//2:Stopwatch
+	    shownScreen.add(3);//3:Timer
+	    shownScreen.add(4);//4:Heart Rate
+	    shownScreen.add(5);//5:Breath
+	    shownScreen.add(6);//6:Sleep
+	    shownScreen.add(7);//7:More
+	    shownScreen.add(8);//8:Pairing code
+
+	   The order of the values in the collection is the order in which the functions are displayed. The functions that do not need to be displayed are not added to the collection. For example:
+	   ArrayList<Integer> shownScreen = new ArrayList<>();
+	    shownScreen.add(0);//0:Activity
+	    shownScreen.add(8);//8:Pairing code
+	    shownScreen.add(1);//1:Sport
+	    shownScreen.add(6);//6:Sleep
+	    shownScreen.add(2);//2:Stopwatch
+	20.Get custom sortable features
 		ZReadCustomSortScreenTask
 		MokoSupport.getInstance().getCustomSortScreen();
 	21.set target steps
@@ -421,53 +421,54 @@ OrderTask：
 		}
 		showText;// no more than 14 bytes
 		isOpen;// on/off notification
-		
+
 		ZWriteCommonMessageTask
 		isPhoneCall;
 		showText;// no more than 30 bytes
 		isOpen;// on/off notification
-	36.设置手环重置数据
+	36.Set the bracelet to reset the data
 		ZWriteResetTask
-	37.设置手环关机
+	37.set the bracelet to shut down
 		ZWriteCloseTask
-	38.寻找手机
+	38.find the mobilephone
 		ZWriteFindPhoneTask
-		当需要使用手环上的寻找手机功能时，请发送该命令，发送后点击手环上的寻找手机，将收到手环发送的命令
-	39.设置手环语言
+		When you need to use the search function on the bracelet, please send this command. After sending, click on the search for the phone on the bracelet and you will receive the command sent by the bracelet.
+	39.set bracelet language
 		ZWriteLanguageTask
-		发送此命令可将手环语言设置成系统语言
-	40.设置日期格式
+		Send this command to set the bracelet language to the system language
+	40.set date format
 		ZWriteDateFormatTask
-		入参需传入日期格式
+		Incoming entry date format
 		dateFormat;// 0:日/月，1:月/日
-	41.获取日期格式zr
+	41.gain date format:zr
 		ZReadDateFormatTask
 		MokoSupport.getInstance().getDateFormat();
-	42.设置手环震动强度
+	42.Set the vibration intensity of the bracelet
 		ZWriteShakeStrengthTask
-		入参需传入震动强度
-		shakeStrength;// 取值范围：1~9
-	43.获取手环震动强度
+		Incoming vibration intensity
+		shakeStrength;// ranges：1~9
+	43.Get the vibration intensity of the bracelet
 		ZReadShakeStrengthTask
 		MokoSupport.getInstance().getShakeStrength();
-	44.设置记步间隔
+	44.Set the step interval
 	    ZWriteStepIntervalTask
-	    默认30分钟(1E)
-	45.获取记步间隔
+	    Default 30 minutes (1E)
+	45.Get the step interval
 	    ZReadStepIntervalTask
 	    MokoSupport.getInstance().getDailyDetailSteps();
-	46.获取运动数据
+	46.Get exercise data
 	    ZReadSportsTask
 	    incoming parameter need timestamp
 	    lastSyncTime;// yyyy-MM-dd HH:mm
 	    MokoSupport.getInstance().getSportDatas();
-	47.获取运动心率
+	47.Get sports heart rate
 	    ZReadSportsHeartRateTask
 	    incoming parameter need timestamp
-        lastSyncTime;// yyyy-MM-dd HH:mm
+	    lastSyncTime;// yyyy-MM-dd HH:mm
 	    MokoSupport.getInstance().getSportsHeartRates();
 
-		
+
+​
 
 ### 2.5	sendDirectOrder
 
