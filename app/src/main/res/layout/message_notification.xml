@@ -8,96 +8,12 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <TableLayout
+        <Button
+            android:id="@+id/btn_notify_common"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:stretchColumns="*">
-
-            <TableRow>
-
-                <Button
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:onClick="notifyPhoneCall"
-                    android:text="notifyPhoneCall" />
-
-                <Button
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:onClick="notifySms"
-                    android:text="notifySms" />
-            </TableRow>
-
-            <TableRow>
-
-                <Button
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:onClick="notifyWechat"
-                    android:text="notifyWechat" />
-
-                <Button
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:onClick="notifyQQ"
-                    android:text="notifyQQ" />
-            </TableRow>
-
-            <TableRow>
-
-                <Button
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:onClick="notifyWhatsapp"
-                    android:text="notifyWhatsapp" />
-
-                <Button
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:onClick="notifyFacebook"
-                    android:text="notifyFacebook" />
-            </TableRow>
-
-            <TableRow>
-
-                <Button
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:onClick="notifyTwitter"
-                    android:text="notifyTwitter" />
-
-                <Button
-                    android:id="@+id/btn_notify_skype"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:onClick="notifySkype"
-                    android:text="notifySkype" />
-            </TableRow>
-
-            <TableRow>
-
-                <Button
-                    android:id="@+id/btn_notify_snapchat"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:onClick="notifySnapchat"
-                    android:text="notifySnapchat" />
-
-                <Button
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:onClick="notifyLine"
-                    android:text="notifyLine" />
-            </TableRow>
-
-            <Button
-                android:id="@+id/btn_notify_common"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:onClick="notifyCommon"
-                android:text="notifyCommon" />
-
-        </TableLayout>
+            android:onClick="notifyCommon"
+            android:text="notifyCommon" />
     </ScrollView>
 
 </LinearLayout>

@@ -16,9 +16,7 @@ import com.fitpolo.demo.h706.R;
 import com.fitpolo.demo.h706.service.MokoService;
 import com.fitpolo.support.MokoConstants;
 import com.fitpolo.support.MokoSupport;
-import com.fitpolo.support.entity.NotifyEnum;
 import com.fitpolo.support.task.ZWriteCommonMessageTask;
-import com.fitpolo.support.task.ZWriteNotifyTask;
 
 import butterknife.ButterKnife;
 
@@ -54,48 +52,6 @@ public class MessageNotificationActivity extends BaseActivity {
         public void onServiceDisconnected(ComponentName name) {
         }
     };
-
-
-    public void notifyPhoneCall(View view) {
-        MokoSupport.getInstance().sendOrder(new ZWriteNotifyTask(mService, NotifyEnum.PHONE_CALL, "123123", true));
-    }
-
-    public void notifySms(View view) {
-        MokoSupport.getInstance().sendOrder(new ZWriteNotifyTask(mService, NotifyEnum.SMS, "12jjj213", true));
-    }
-
-    public void notifyWechat(View view) {
-        MokoSupport.getInstance().sendOrder(new ZWriteNotifyTask(mService, NotifyEnum.WECHAT, "SDFS", true));
-    }
-
-    public void notifyQQ(View view) {
-        MokoSupport.getInstance().sendOrder(new ZWriteNotifyTask(mService, NotifyEnum.QQ, "sddsd", true));
-    }
-
-    public void notifyWhatsapp(View view) {
-        MokoSupport.getInstance().sendOrder(new ZWriteNotifyTask(mService, NotifyEnum.WHATSAPP, "1111", true));
-    }
-
-    public void notifyFacebook(View view) {
-        MokoSupport.getInstance().sendOrder(new ZWriteNotifyTask(mService, NotifyEnum.FACEBOOK, "2222", true));
-    }
-
-    public void notifyTwitter(View view) {
-        MokoSupport.getInstance().sendOrder(new ZWriteNotifyTask(mService, NotifyEnum.TWITTER, "3423", true));
-    }
-
-    public void notifySkype(View view) {
-        MokoSupport.getInstance().sendOrder(new ZWriteNotifyTask(mService, NotifyEnum.SKYPE, "52323", true));
-    }
-
-    public void notifySnapchat(View view) {
-        MokoSupport.getInstance().sendDirectOrder(new ZWriteNotifyTask(mService, NotifyEnum.SNAPCHAT, "vczv", true));
-    }
-
-    public void notifyLine(View view) {
-        MokoSupport.getInstance().sendDirectOrder(new ZWriteNotifyTask(mService, NotifyEnum.LINE, "asd", true));
-    }
-
 
     public void notifyCommon(View view) {
         MokoSupport.getInstance().sendOrder(new ZWriteCommonMessageTask(mService, false, "common\nasd", true));

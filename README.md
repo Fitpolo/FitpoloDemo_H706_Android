@@ -405,23 +405,6 @@ OrderTask：
 		default vibrate twice, vibrate 1 second then stop 1 second
 		 no response handle
 	35.set bracelet notification
-		ZWriteNotifyTask
-		public enum NotifyEnum {
-			PHONE_CALL(0X00),// call notification
-			SMS(0X01),// SMS notification
-			WECHAT(0X02),// wechat notification
-			QQ(0X03),// qq notification
-			WHATSAPP(0X04),//Whatsapp  notification
-			FACEBOOK(0X05),//Facebook  notification
-			TWITTER(0X06),//Twitter  notification
-			SKYPE(0X07),//Skype  notification
-			SNAPCHAT(0X08),//Snapchat  notification
-			LINE(0X09),//Line  notification
-			;
-		}
-		showText;// no more than 14 bytes
-		isOpen;// on/off notification
-
 		ZWriteCommonMessageTask
 		isPhoneCall;
 		showText;// no more than 30 bytes
